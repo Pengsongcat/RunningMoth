@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     public GameObject mothPrefab;
 
     [Header("UI")]
+    public TextMeshProUGUI countDownText;
     public RawImage[] lifeIcons;
     public TextMeshProUGUI scoreText;
     public GameObject endGamePanel;
@@ -52,6 +53,27 @@ public class GameManager : MonoBehaviour
         // set button
         restartButton.onClick.AddListener(RestartGame);
         mainMenuButton.onClick.AddListener(ReturnToMainMenu);
+
+        // initial Wait 3, 2, 1
+        StartCoroutine(InitialWait());
+    }
+
+    private IEnumerator InitialWait()
+    {
+        moth.GetComponent<mothController>().setMovable(false);
+
+        for (int i = 3; i > 0; i--)
+        {
+            countDownText.text = i.ToString();
+            yield return new WaitForSeconds(1);
+        }
+
+        countDownText.text = "GO!";
+        yield return new WaitForSeconds(0.5f);
+
+        countDownText.gameObject.SetActive(false);
+
+        moth.GetComponent<mothController>().setMovable(true);
     }
 
     void Update()
@@ -59,6 +81,7 @@ public class GameManager : MonoBehaviour
         score = Mathf.FloorToInt(moth.transform.position.y * 10.0f);
         scoreText.text = score.ToString();
     }
+
 
     public void TakeDamage()
     {

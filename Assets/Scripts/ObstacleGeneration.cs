@@ -65,7 +65,7 @@ public class ObstacleGeneration : MonoBehaviour
 
     private void generateObstacle()
     {
-        if (difficultyLevel <= 2)       // low difficulty without dynamic obstacle
+        /*if (difficultyLevel <= 2)       // low difficulty without dynamic obstacle
         {
             generateStatic();
         }
@@ -79,6 +79,15 @@ public class ObstacleGeneration : MonoBehaviour
             {
                 generateStatic();
             }
+        }*/
+
+        if (Random.value > 0.7f)
+        {
+            generateDynamic();
+        }
+        else
+        {
+            generateStatic();
         }
     }
 

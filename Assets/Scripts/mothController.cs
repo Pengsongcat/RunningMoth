@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class mothController : MonoBehaviour
 {
@@ -52,6 +53,11 @@ public class mothController : MonoBehaviour
         }
     }
 
+    public void setMovable(bool IsMovable)
+    {
+        canMove = IsMovable;
+    }
+
     private void moveForward()
     {
         transform.Translate(Vector3.up * initSpeed * Time.deltaTime);       // move towards z direction
@@ -61,7 +67,7 @@ public class mothController : MonoBehaviour
 
     private void rotationUpdate()
     {
-        float horizontalInput = Input.GetAxis("Horizontal");
+        /*float horizontalInput = Input.GetAxis("Horizontal");
         float rotationAmount = horizontalInput * rotationSpeed * Time.deltaTime;
 
         transform.Rotate(0, 0, -rotationAmount);
@@ -72,7 +78,18 @@ public class mothController : MonoBehaviour
             currentZRotation -= 360f;
         }
         currentZRotation = Mathf.Clamp(currentZRotation, -89f, 89f);
-        transform.rotation = Quaternion.Euler(0, 0, currentZRotation);
+        transform.rotation = Quaternion.Euler(0, 0, currentZRotation);*/
+
+        float horizontalInput = Input.GetAxis("Horizontal");
+        
+        float mappedInput = Mathf.Tan(horizontalInput * Mathf.PI / 3) / 1.73f;
+        Debug.Log(horizontalInput + " " + mappedInput);
+
+        float targetZRotation = mappedInput * 80;
+
+        Quaternion currentRotation = transform.rotation;
+        Quaternion targetRotation = Quaternion.Euler(0, 0, targetZRotation);
+        transform.rotation = Quaternion.Lerp(currentRotation, targetRotation, Time.deltaTime * rotationSpeed);
     }
 
     private void IncreaseSpeed()
