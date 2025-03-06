@@ -51,10 +51,7 @@ public class ObstacleGeneration : MonoBehaviour
         {
             generateObstacle();
             float obstacleDistance = initialObstacleDistance - (initialObstacleDistance - finalObstacleDistance) * difficultyLevel / maxDifficuty;    // calculate obstacleDistance
-            nextObstacleY += obstacleDistance;
-
-            Debug.Log("Obstacle generated!");
-            Debug.Log("Difficulty Level" + difficultyLevel);
+            nextObstacleY += obstacleDistance; 
         }
     }
 
@@ -65,23 +62,9 @@ public class ObstacleGeneration : MonoBehaviour
 
     private void generateObstacle()
     {
-        /*if (difficultyLevel <= 2)       // low difficulty without dynamic obstacle
-        {
-            generateStatic();
-        }
-        else     // normal difficulty with dynamic obstacle
-        {
-            if (Random.value > 0.6f)
-            {
-                generateDynamic();
-            }
-            else
-            {
-                generateStatic();
-            }
-        }*/
-
-        if (Random.value > 0.7f)
+        // float dynamicChance = 0.6f * Mathf.Sqrt( 1f * difficultyLevel / maxDifficuty);
+        float dynamicChance = 0.6f * difficultyLevel / maxDifficuty;
+        if (Random.value < dynamicChance)
         {
             generateDynamic();
         }
@@ -89,6 +72,19 @@ public class ObstacleGeneration : MonoBehaviour
         {
             generateStatic();
         }
+
+        Debug.Log("Obstacle generated!");
+        Debug.Log("Difficulty Level" + difficultyLevel);
+        Debug.Log("Dynamic Chance" + dynamicChance);
+
+        /*if (Random.value > 0.7f)
+        {
+            generateDynamic();
+        }
+        else
+        {
+            generateStatic();
+        }*/
     }
 
     private void generateDynamic()

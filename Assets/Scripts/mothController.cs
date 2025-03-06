@@ -82,8 +82,8 @@ public class mothController : MonoBehaviour
 
         float horizontalInput = Input.GetAxis("Horizontal");
         
-        float mappedInput = Mathf.Tan(horizontalInput * Mathf.PI / 3) / 1.73f;
-        Debug.Log(horizontalInput + " " + mappedInput);
+        float mappedInput = Mathf.Tan(horizontalInput * Mathf.PI / 4);
+        // Debug.Log(horizontalInput + " " + mappedInput);
 
         float targetZRotation = mappedInput * 80;
 

@@ -288,8 +288,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 8
-  initSpeed: 4
-  speedIncreaseAmount: 0.15
+  initSpeed: 4.5
+  speedIncreaseAmount: 0.09
   leftBoundary: -4.9
   rightBoundary: 4.9
   dizzyTime: 2
